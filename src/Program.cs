@@ -32,13 +32,22 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapPost("/tavus/personas", async Task<IResult> (TavusPipelineService service, CancellationToken cancellationToken) =>
+    {
+        var persona = await service.BuildPersonaAsync(cancellationToken);
+        return Results.Ok(persona);
+    })
+    .WithName("CreateTavusPersona")
+    .WithSummary("Creates a Tavus persona and returns its identifying information.")
+    .Produces<PersonaSetupResponse>();
+
 app.MapPost("/tavus/conversations", async Task<IResult> (StartConversationRequest request, TavusPipelineService service, CancellationToken cancellationToken) =>
     {
-        var result = await service.StartConversationAsync(request.ConversationName, cancellationToken);
+        var result = await service.StartConversationAsync(request.PersonaId, request.ConversationName, cancellationToken);
         return Results.Ok(result);
     })
     .WithName("CreateTavusConversation")
-    .WithSummary("Creates a persona using the full Tavus pipeline and returns the conversation URL to join.")
+    .WithSummary("Starts a conversation for an existing persona and returns the conversation URL to join.")
     .Produces<ConversationLaunchResponse>();
 
 app.MapGet("/", () => Results.Redirect("/swagger", permanent: false));

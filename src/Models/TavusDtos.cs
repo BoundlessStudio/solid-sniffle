@@ -32,6 +32,9 @@ public record TavusConversationResponse(
     [property: JsonPropertyName("callback_url")] string? CallbackUrl,
     [property: JsonPropertyName("created_at")] DateTimeOffset CreatedAt);
 
-public record ConversationLaunchResponse(string ConversationId, string ConversationName, string ConversationUrl, string Status, DateTimeOffset CreatedAt);
+public record ConversationLaunchResponse(string ConversationId, string ConversationName, string ConversationUrl, string Status,
+    DateTimeOffset CreatedAt);
 
-public record StartConversationRequest(string? ConversationName);
+public record PersonaSetupResponse(string PersonaId, string PersonaName);
+
+public record StartConversationRequest(string PersonaId, string? ConversationName);
