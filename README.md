@@ -1,37 +1,36 @@
-# Tavus.io Minimal API Prototype
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-This repo contains a .NET 8 minimal API that reproduces the Tavus quick start flow: it creates an interviewer persona using the full pipeline, then immediately launches a conversation and returns the `conversation_url` so you can join.
+## Getting Started
 
-## Getting started
-
-1. **Install the .NET 8 SDK** (already included in this workspace, download from <https://dotnet.microsoft.com/> if needed).
-2. **Configure your Tavus API key** using either option:
-   * Export an environment variable before running the app:
-     ```bash
-     export Tavus__ApiKey="YOUR_API_KEY"
-     ```
-   * Or edit `TavusPrototype/appsettings.json` and replace the `SET-IN-SECRETS` placeholder.
-
-> Tip: every other setting (base URL, persona defaults, replica ID) can also be overridden through the `Tavus:*` configuration keys.
-
-## Run the API
+First, run the development server:
 
 ```bash
-cd TavusPrototype
-dotnet run
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Once the app is running you can browse to `https://localhost:7086/swagger` (or the HTTP port shown in the console) to try the endpoint interactively.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Start a conversation via cURL
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```bash
-curl --request POST \
-  --url https://localhost:7086/tavus/conversations \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "conversationName": "Interview User"
-  }'
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-The response contains the `conversationUrl` along with the IDs returned by Tavus so you can join immediately.
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

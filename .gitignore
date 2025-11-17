@@ -1,64 +1,41 @@
-## Build artifacts
-bin/
-obj/
-**/bin/
-**/obj/
-artifacts/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-## User-specific files
-*.user
-*.userosscache
-*.suo
-*.swp
-*.tmp
-*.temp
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-## IDE / Editor
-.vs/
-*.vscode/
-*.idea/
-*.DS_Store
+# testing
+/coverage
 
-## ASP.NET / IIS
-*.dbmdl
-*.jfm
-*.pfx
-*.p12
+# next.js
+/.next/
+/out/
 
-## NuGet
-*.nupkg
-*.snupkg
-.nuget/
-packages/
-project.lock.json
-project.fragment.lock.json
+# production
+/build
 
-## Logs
-*.log
-logs/
+# misc
+.DS_Store
+*.pem
 
-## Publish outputs
-publish/
-wwwroot/dist/
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
-## Resharper
-_ReSharper*/
-*.DotSettings.user
+# env files (can opt-in for committing if needed)
+.env*
 
-## Rider
-.idea/
+# vercel
+.vercel
 
-## Azure Functions (if present)
-local.settings.json
-
-## Entity Framework
-Migrations/obj/
-
-## Coverage / analysis
-coverage/
-*.coverage
-*.coveragexml
-
-## Temporary
-*.cache
-*.bak
+# typescript
+*.tsbuildinfo
+next-env.d.ts
