@@ -15,7 +15,7 @@ builder.Services.AddHttpClient<TavusPipelineService>((sp, client) =>
     var options = sp.GetRequiredService<IOptions<TavusOptions>>().Value;
     if (string.IsNullOrWhiteSpace(options.ApiKey))
     {
-        throw new InvalidOperationException("Configure Tavus:ApiKey (or the Tavus__ApiKey environment variable) before calling the pipeline.");
+        throw new InvalidOperationException("Configure Tavus:ApiKey before calling the pipeline.");
     }
 
     var baseUrl = string.IsNullOrWhiteSpace(options.BaseUrl) ? "https://tavusapi.com/v2/" : options.BaseUrl.TrimEnd('/') + "/";
