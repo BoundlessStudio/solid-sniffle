@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11205.157 d18.0
+VisualStudioVersion = 18.0.11205.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TavusPrototype", "src\TavusPrototype.csproj", "{4874E5A5-7164-9B15-31FE-4D7A54CB8CEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTravus", "test\TestTravus.csproj", "{C291A348-A8DF-476A-A30C-6AA5A1DB87F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{4874E5A5-7164-9B15-31FE-4D7A54CB8CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4874E5A5-7164-9B15-31FE-4D7A54CB8CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4874E5A5-7164-9B15-31FE-4D7A54CB8CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C291A348-A8DF-476A-A30C-6AA5A1DB87F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C291A348-A8DF-476A-A30C-6AA5A1DB87F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C291A348-A8DF-476A-A30C-6AA5A1DB87F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C291A348-A8DF-476A-A30C-6AA5A1DB87F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

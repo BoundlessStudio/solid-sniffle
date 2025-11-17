@@ -19,8 +19,7 @@ builder.Services.AddHttpClient<TavusPipelineService>((sp, client) =>
         throw new InvalidOperationException("Configure Tavus:ApiKey before calling the pipeline.");
     }
 
-    var baseUrl = string.IsNullOrWhiteSpace(options.BaseUrl) ? "https://tavusapi.com/v2/" : options.BaseUrl.TrimEnd('/') + "/";
-    client.BaseAddress = new Uri(baseUrl);
+    client.BaseAddress = new Uri(options.BaseUrl);
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     client.DefaultRequestHeaders.Add("x-api-key", options.ApiKey);
 });
@@ -38,8 +37,8 @@ app.MapPost("/personas", async Task<IResult> (TavusPipelineService service, Canc
         var name = "Interviewer";
         var instructions = "As an Interviewer, you are a skilled professional who conducts thoughtful and structured interviews. Your aim is to ask insightful questions, listen carefully, and assess responses objectively to identify the best candidates.";
         var context = "You have a track record of conducting interviews that put candidates at ease, draw out their strengths, and help organizations make excellent hiring decisions.";
-        var replica_id = "r9fa0878977a";
-        var persona = await service.BuildPersonaAsync(name, instructions, context, replica_id,  ct);
+        var replicaId = "r9fa0878977a";
+        var persona = await service.BuildPersonaAsync(name, instructions, context, replicaId,  ct);
         return Results.Ok(persona);
     })
     .WithName("CreatePersona")

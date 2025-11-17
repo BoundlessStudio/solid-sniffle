@@ -24,9 +24,9 @@ public class TavusPipelineService
         _logger = logger;
     }
 
-    public async Task<PersonaSetupResponse> BuildPersonaAsync(string name, string instructions, string context, string replica_id, CancellationToken cancellationToken = default)
+    public async Task<PersonaSetupResponse> BuildPersonaAsync(string name, string instructions, string context, string replicaId, CancellationToken cancellationToken = default)
     {
-        var request = new PersonaRequest(name, instructions, "full", context, replica_id, new PersonaLayers(new PerceptionLayer("raven-0"), new SttLayer(true)));
+        var request = new PersonaRequest(name, instructions, "full", context, replicaId, new PersonaLayers(new PerceptionLayer("raven-0"), new SttLayer(true)));
         var response = await PostAsync<PersonaRequest, PersonaResponse>("personas", request, cancellationToken);
 
         return new PersonaSetupResponse(response.PersonaId, request.PersonaName);
