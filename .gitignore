@@ -1,6 +1,64 @@
+## Build artifacts
 bin/
 obj/
 **/bin/
 **/obj/
+artifacts/
+
+## User-specific files
 *.user
+*.userosscache
+*.suo
 *.swp
+*.tmp
+*.temp
+
+## IDE / Editor
+.vs/
+*.vscode/
+*.idea/
+*.DS_Store
+
+## ASP.NET / IIS
+*.dbmdl
+*.jfm
+*.pfx
+*.p12
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+
+## Logs
+*.log
+logs/
+
+## Publish outputs
+publish/
+wwwroot/dist/
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## Rider
+.idea/
+
+## Azure Functions (if present)
+local.settings.json
+
+## Entity Framework
+Migrations/obj/
+
+## Coverage / analysis
+coverage/
+*.coverage
+*.coveragexml
+
+## Temporary
+*.cache
+*.bak

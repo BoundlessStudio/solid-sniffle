@@ -24,15 +24,15 @@ public class TavusPipelineService
         _logger = logger;
     }
 
-    public async Task<PersonaSetupResponse> BuildPersonaAsync(CancellationToken cancellationToken)
+    public async Task<PersonaSetupResponse> BuildPersonaAsync(string name, string instructions, string context, string replica_id, CancellationToken cancellationToken = default)
     {
-        var personaRequest = BuildPersonaRequest();
-        var personaResponse = await PostAsync<PersonaRequest, PersonaResponse>("personas", personaRequest, cancellationToken);
+        var request = new PersonaRequest(name, instructions, "full", context, replica_id, new PersonaLayers(new PerceptionLayer("raven-0"), new SttLayer(true)));
+        var response = await PostAsync<PersonaRequest, PersonaResponse>("personas", request, cancellationToken);
 
-        return new PersonaSetupResponse(personaResponse.PersonaId, personaRequest.PersonaName);
+        return new PersonaSetupResponse(response.PersonaId, request.PersonaName);
     }
 
-    public async Task<ConversationLaunchResponse> StartConversationAsync(string personaId, string? conversationName, CancellationToken cancellationToken)
+    public async Task<ConversationLaunchResponse> StartConversationAsync(string personaId, string? conversationName, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(personaId))
         {
@@ -45,17 +45,7 @@ public class TavusPipelineService
         return new ConversationLaunchResponse(conversation.ConversationId, conversation.ConversationName, conversation.ConversationUrl, conversation.Status, conversation.CreatedAt);
     }
 
-    private PersonaRequest BuildPersonaRequest()
-    {
-        return new PersonaRequest(
-            _options.DefaultPersonaName,
-            "As an Interviewer, you are a skilled professional who conducts thoughtful and structured interviews. Your aim is to ask insightful questions, listen carefully, and assess responses objectively to identify the best candidates.",
-            "full",
-            "You have a track record of conducting interviews that put candidates at ease, draw out their strengths, and help organizations make excellent hiring decisions.",
-            _options.DefaultReplicaId,
-            new PersonaLayers(new PerceptionLayer("raven-0"), new SttLayer(true))
-        );
-    }
+
 
     private async Task<TResponse> PostAsync<TRequest, TResponse>(string resource, TRequest payload, CancellationToken cancellationToken)
     {

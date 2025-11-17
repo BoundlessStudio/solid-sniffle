@@ -1,5 +1,6 @@
-using System.Net.Http.Headers;
 using Microsoft.Extensions.Options;
+using System;
+using System.Net.Http.Headers;
 using TavusPrototype.Models;
 using TavusPrototype.Options;
 using TavusPrototype.Services;
@@ -32,24 +33,28 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapPost("/tavus/personas", async Task<IResult> (TavusPipelineService service, CancellationToken cancellationToken) =>
+app.MapPost("/personas", async Task<IResult> (TavusPipelineService service, CancellationToken ct) =>
     {
-        var persona = await service.BuildPersonaAsync(cancellationToken);
+        var name = "Interviewer";
+        var instructions = "As an Interviewer, you are a skilled professional who conducts thoughtful and structured interviews. Your aim is to ask insightful questions, listen carefully, and assess responses objectively to identify the best candidates.";
+        var context = "You have a track record of conducting interviews that put candidates at ease, draw out their strengths, and help organizations make excellent hiring decisions.";
+        var replica_id = "r9fa0878977a";
+        var persona = await service.BuildPersonaAsync(name, instructions, context, replica_id,  ct);
         return Results.Ok(persona);
     })
-    .WithName("CreateTavusPersona")
+    .WithName("CreatePersona")
     .WithSummary("Creates a Tavus persona and returns its identifying information.")
     .Produces<PersonaSetupResponse>();
 
-app.MapPost("/tavus/conversations", async Task<IResult> (StartConversationRequest request, TavusPipelineService service, CancellationToken cancellationToken) =>
+app.MapPost("/conversations", async Task<IResult> (CreateConversationRequest request, TavusPipelineService service, CancellationToken ct) =>
     {
-        var result = await service.StartConversationAsync(request.PersonaId, request.ConversationName, cancellationToken);
+        var result = await service.StartConversationAsync(request.PersonaId, request.ConversationName, ct);
         return Results.Ok(result);
     })
-    .WithName("CreateTavusConversation")
+    .WithName("CreateConversation")
     .WithSummary("Starts a conversation for an existing persona and returns the conversation URL to join.")
     .Produces<ConversationLaunchResponse>();
 
-app.MapGet("/", () => Results.Redirect("/swagger", permanent: false));
+app.MapGet("/", () => Results.Redirect("/swagger", permanent: false)).ExcludeFromDescription();
 
 app.Run();

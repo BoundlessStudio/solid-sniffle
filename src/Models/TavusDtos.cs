@@ -18,11 +18,16 @@ public record PerceptionLayer([property: JsonPropertyName("perception_model")] s
 
 public record SttLayer([property: JsonPropertyName("smart_turn_detection")] bool SmartTurnDetection);
 
-public record PersonaResponse([property: JsonPropertyName("persona_id")] string PersonaId);
+public record PersonaResponse(
+    [property: JsonPropertyName("persona_id")] string PersonaId,
+    [property: JsonPropertyName("persona_name")] string PersonaName,
+    [property: JsonPropertyName("created_at")] string CreatedAt
+);
 
 public record CreateConversationRequest(
     [property: JsonPropertyName("persona_id")] string PersonaId,
-    [property: JsonPropertyName("conversation_name")] string ConversationName);
+    [property: JsonPropertyName("conversation_name")] string ConversationName
+);
 
 public record TavusConversationResponse(
     [property: JsonPropertyName("conversation_id")] string ConversationId,
@@ -30,11 +35,23 @@ public record TavusConversationResponse(
     [property: JsonPropertyName("conversation_url")] string ConversationUrl,
     [property: JsonPropertyName("status")] string Status,
     [property: JsonPropertyName("callback_url")] string? CallbackUrl,
-    [property: JsonPropertyName("created_at")] DateTimeOffset CreatedAt);
+    [property: JsonPropertyName("created_at")] DateTimeOffset CreatedAt
+);
 
-public record ConversationLaunchResponse(string ConversationId, string ConversationName, string ConversationUrl, string Status,
-    DateTimeOffset CreatedAt);
+public record ConversationLaunchResponse(
+    [property: JsonPropertyName("conversation_id")] string ConversationId,
+    [property: JsonPropertyName("conversation_name")] string ConversationName,
+    [property: JsonPropertyName("conversation_url")] string ConversationUrl,
+    [property: JsonPropertyName("status")] string Status,
+    [property: JsonPropertyName("created_at")] DateTimeOffset CreatedAt
+);
 
-public record PersonaSetupResponse(string PersonaId, string PersonaName);
+public record PersonaSetupResponse(
+    [property: JsonPropertyName("persona_id")] string PersonaId,
+    [property: JsonPropertyName("persona_name")] string PersonaName
+);
 
-public record StartConversationRequest(string PersonaId, string? ConversationName);
+public record StartConversationRequest(
+    string PersonaId,
+    string? ConversationName
+);
