@@ -24,10 +24,22 @@ public class TavusPipelineService
         _logger = logger;
     }
 
-    public async Task<ConversationLaunchResponse> StartConversationAsync(string? conversationName, CancellationToken cancellationToken)
+    public async Task<PersonaSetupResponse> BuildPersonaAsync(CancellationToken cancellationToken)
     {
-        var personaResponse = await PostAsync<PersonaRequest, PersonaResponse>("personas", BuildPersonaRequest(), cancellationToken);
-        var conversationRequest = new CreateConversationRequest(personaResponse.PersonaId, string.IsNullOrWhiteSpace(conversationName) ? "Interview User" : conversationName!);
+        var personaRequest = BuildPersonaRequest();
+        var personaResponse = await PostAsync<PersonaRequest, PersonaResponse>("personas", personaRequest, cancellationToken);
+
+        return new PersonaSetupResponse(personaResponse.PersonaId, personaRequest.PersonaName);
+    }
+
+    public async Task<ConversationLaunchResponse> StartConversationAsync(string personaId, string? conversationName, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(personaId))
+        {
+            throw new ArgumentException("PersonaId is required to start a conversation.", nameof(personaId));
+        }
+
+        var conversationRequest = new CreateConversationRequest(personaId, string.IsNullOrWhiteSpace(conversationName) ? "Interview User" : conversationName!);
         var conversation = await PostAsync<CreateConversationRequest, TavusConversationResponse>("conversations", conversationRequest, cancellationToken);
 
         return new ConversationLaunchResponse(conversation.ConversationId, conversation.ConversationName, conversation.ConversationUrl, conversation.Status, conversation.CreatedAt);
