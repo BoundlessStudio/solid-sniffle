@@ -23,8 +23,7 @@ export default function Home() {
       }
 
       const data = await response.json();
-      const joinUrl = data?.meeting_url || data?.join_url || data?.data?.join_url;
-      setConversationLink(joinUrl ?? null);
+      setConversationLink(data?.conversation_url);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unknown error";
       setError(message);
